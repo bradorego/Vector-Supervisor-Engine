@@ -1,0 +1,65 @@
+NETWORK PROTOCOL
+--------------------
+
+First, all clients are asked to identify with a request:
+
+IDENTIFY?
+
+Then, after all have identified, the game turn orders are
+decided and printed in the format:
+
+GAME <number>: <north player> <east> <south> <west>
+
+After which the first game starts.  Each game starts with:
+
+BEGIN GAME <game number>: <north player> <e> <s> <w>
+
+Each game starts with:
+
+BEGIN ROUND <round>
+COORD: <x> <y>
+TURN ORDER: <north player> <e> <s> <w>
+
+When it comes time for a given client to state its direction, it is asked:
+
+DIRECTION?
+
+To which it replies:
+
+DIRECTION: <one of N, NE, E, SE, S, SW, W, NW> \r\n
+
+The server broadcasts the choice of the current player immediately after each player responds with its direction in the:.
+
+<one of N, E, S, W> CHOOSES: <one of N, NE, E, SE, S, SW, W, NW>
+
+Similarly, when magnitude is requested, the client is asked:
+
+MAGNITUDE?
+
+To which it replies:
+
+MAGNITUDE: <magnitude> \r\n
+
+Then, the magnitude choices of all the players is given in the following form at the same time:
+
+MAGNITUDES: <magnitude of north> <e> <s> <w>
+
+After each round, the scores are announced in the form:
+
+SCORES(NESW): <north score> <e> <s> <w>
+
+Should a player be disqualified at any time, their disqualification
+will be announced:
+
+DISQUALIFICATION: <first disqualified player (identified by N, E, S or W)> <second disqualified player> ...
+
+After a disqualification or the end of a round, the next
+round starts in a similar fashion.  The same holds for each game
+as well.
+
+At the end of each game, the game winners and the current tournament scores are announced as follows:
+
+WINNER: <winning team or tie, should the game be a tie>
+TOURNAMENT SCORES: <player 1>=<score> <player 2>=score ...
+
+After a game has ended, either a new game begins or the program finishes.

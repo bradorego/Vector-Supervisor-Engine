@@ -1,0 +1,118 @@
+README for VSE
+by SlytherClaw: Cole Brown, Frank Ferraro, Aaron Gorenstein, Sara Melnick, Bradley Orego, Jacob Scheiber, Evan VanDeGriff, Greg Wilbur, Andrew Wood, Robert Yoon
+March 25, 2009
+for CSC200(H): Project 2
+
+***THE REQUIRED FILES***
+	Paper: The file labeled TR.pdf contains our tech report/paper. It details the protocol twice: once in plain English (in the body of the paper) and once in an appendix, where it more closely resembles screen I/O.
+	
+	Complete Tournament Transcript: A transcript for a complete tournament is found in "transcript_complete_tournament.txt"; this documents a complete tournament.
+	
+	*.py: Our source code
+	
+	/build/exe.linux-i686-2.5/vector_server_select: The executable
+	
+	/GameObjects1.1/: The pre-rendered images.
+	
+	/build/exe.linux-i686-2.5/GameObjects1.1/: The pre-rendered images for the executable.
+	
+	/Dummy_Players/: The dummy players we wrote in Java, C and Python. Simply compile as necessary.
+				For the C player:
+					> gcc -o vector_client vector_client.c
+				For the Java player:
+					> javac computer_player.java
+			And then run as appropriate. Note that <TAGS> refer to the necessary tags, described below:
+				For the C player:
+					> ./vector_client.c <TAGS>
+				For the Java player:
+					> java computer_player <TAGS>
+				For the Python player:
+					> python computer_player.py <TAGS>
+	
+	NEW_BOARD: An ASCII representation of the board.
+	
+	test_case_transcript.txt: A transcript of our test cases.
+	
+	scripted_player.{java,class}: A scripted player to demonstrate the test cases.
+	
+	test_case_moves.{java,class}: The actions for the scripted player.
+	
+	README: This file.
+
+***GETTING STARTED***
+Welcome to Vector(TM)!  Before you begin totally enjoying yourself, there
+are a few things you must know! First, please extract the folder named "Project2" to whereever you would like to host the server. In Project 2, there are the source Python files (*.py), which are fine if the computer on which you will be host VSE has both Python 2.5 and PyGame. If that is the case, there is no need to worry about compiling anything. However, if you do not have PyGame installed (and are running Linux on i686 architecture), you must change directory to /build/exe.linux-i686-2.5; i.e., please execute the following code.
+
+> cd /build/exe.linux-i686-2.5
+
+This folder has an executable of the server, which you will then run as described in the next section.
+
+***STARTING THE SERVER***
+If running the server from the Python source, then simply call (options will be described soon):
+> python vector_server.py [-g games] [-r rounds] [-t timeout] [-h host]
+
+However, if running from the executable, you must execute:
+> ./vector_server_select [-g games] [-r rounds] [-t timeout] [-h host]
+
+All options in brackets are to be executed without the brackets
+(i.e. "./vector_server_select -g 10").  An explanation of the options
+follows:
+
+g - the number of games to play
+    this must be an integer value greater than 0
+
+r - the number of rounds per game
+    this must be an integer value greater than 0
+
+t - the amount of time a player is alotted before they time out and
+    are disqualified.  this number is entered in seconds.
+    this must be a floating point number greater than 0
+
+h - by default, the server will listen on 'localhost'.  note that this
+    is only acceptable when all the clients are to be run on the same
+    machine the server is running on.  if you wish to have your server
+    listen to outside machines you must pass this the address at which
+    the clients can reach your computer.
+    
+After executing these arguments, the server is up and running, and waiting for players to connect to port 1337 on host h.
+
+***CONNECTING THE PLAYERS TO THE SERVER***
+Consider an agent (a player) written in Python, which has socket capabilities programmed in, and stored in the file computer_player.py. The beauty of sockets and networking is that this agent can be anywhere, so long as it can connect to the computer running the server. Once the server is running, then simply execute that player code. The following example code shows how, the table following the code explains the required tags:
+
+  python computer_player.py <HOST> <PORT> <NAME>
+  
+HOST -	This is the host to which the socket must connect.
+		This is either localhost or the IP address.
+		
+PORT -	By default in the server, the port is 1337.
+
+NAME -	The desired name for the current player.  
+
+Note that all three arguments are required! Thus, the agents must be designed to take in (at least) three arguments. Of course, if the agent wishes to do its own internal book-keeping, it may request more arguments, but the VSE requires each player to send the host, port and its name, in that order.
+
+The <HOST> argument must be the same host specified to the server upon start- up. Since HOST defaults to localhost if no host is specified when starting the VSE, then in this case the HOST passed to computer_player.py MUST be localhost. If connecting across a network, then the IP address of the computer running the server must be given as HOST.
+  
+***PLAYING THE TOURNAMENT***
+
+After running the server, it will listen for connections and once
+it detects 4 players have connected it will launch the board window.
+The tournament will begin immediately and you will see, in real time,
+the games play out.  Note that the moves may display faster than 
+you can understand them.  After the tournament has finished, the
+display will switch into "replay mode" in which you can see, play by
+play, every game in the tournament.
+
+Replay mode is controlled rather intuitively with the arrow keys.
+
+Pushing the up/down keys will display the next/previous game, respectively.
+
+Pushing the left/right keys will display the next/previous round
+in a game, respectively.
+
+As the game progresses or you step through the replay, the sidebar
+located on the right of the window will update with the scores
+at the current moment.
+
+With these instructions in hand, you can now begin enjoying the fast-paced,
+high-octane thriller that is VECTOR.
+
